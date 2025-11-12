@@ -1,153 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday — Shibani (Seema)</title>
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Poppins", sans-serif;
+  *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins","Segoe UI Emoji","Apple Color Emoji",sans-serif;}
+  body{
+    background:linear-gradient(135deg,#ffd1dc,#ffe5b4);
+    overflow:hidden;
   }
 
-  body {
-    background: linear-gradient(135deg, #ffd1dc, #ffe5b4);
-    overflow: hidden;
+  .screen{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    text-align:center;
+    padding:40px 20px;
+    overflow-y:auto;
   }
 
-  .screen {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    text-align: center;
-    padding: 30px;
-    overflow-y: auto;
+  h1,p{
+    margin:10px 0;
+    font-size:22px;
+    line-height:1.7;
+    color:#fff;
   }
 
-  h1, p {
-    margin: 10px 0;
-    font-size: 22px;
-    line-height: 1.8;
-    color: #fff;
+  select,input,button{
+    font-size:16px;
+    padding:8px 14px;
+    margin:10px;
+    border:none;
+    border-radius:8px;
   }
 
-  button {
-    padding: 8px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    background: linear-gradient(to right, #ff9a9e, #fad0c4);
-    color: #fff;
-    font-size: 16px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-    position: fixed;
-    bottom: 15px;
+  button{
+    background:linear-gradient(to right,#ff9a9e,#fad0c4);
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    position:fixed;
+    bottom:15px;
+    border-radius:12px;
   }
 
-  #backBtn {
-    left: 20px;
+  #backBtn{left:20px;}
+  #nextBtn,#exitBtn{right:20px;}
+
+  .error{color:red;font-weight:bold;margin-top:10px;}
+
+  .emoji{
+    position:fixed;
+    font-size:28px;
+    pointer-events:none;
+    animation:fall linear infinite;
+    z-index:10; /* ensures they fall in front of text */
   }
 
-  #nextBtn, #exitBtn {
-    right: 20px;
-  }
-
-  .emoji {
-    position: fixed;
-    font-size: 28px;
-    animation: fall linear infinite;
-  }
-
-  @keyframes fall {
-    0% {
-      transform: translateY(-10vh) rotate(0deg);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(110vh) rotate(360deg);
-      opacity: 0.8;
-    }
+  @keyframes fall{
+    0%{transform:translateY(-10vh) rotate(0deg);opacity:1;}
+    100%{transform:translateY(110vh) rotate(360deg);opacity:0.8;}
   }
 </style>
 </head>
 <body>
-  <!-- Page 1 -->
-  <div id="page1" class="screen" style="display:flex;">
-    <h1>🎂Happy Birthday🎂</h1>
-    <h1>🥰My little princess🥰</h1>
-    <h1>💝Shibani💝</h1>
-    <h1>🤍Seema didi🤍</h1>
-    <button id="nextBtn" onclick="nextPage(2)">Next → Wish 💖</button>
-  </div>
 
-  <!-- Page 2 -->
-  <div id="page2" class="screen">
-    <p>🎁🎈🎊🍫🍫🍫 Happy Birthday to my sweetest little sister! You’re my reason to smile every day. May your day be filled with laughter, chocolate, and endless happiness. 🩷</p>
-    <button id="backBtn" onclick="nextPage(1)">← Back</button>
-    <button id="nextBtn" onclick="nextPage(3)">Next → 💝</button>
+<!-- Phase 1: Unlock -->
+<div id="page1" class="screen" style="display:flex;">
+  <h1>When is my (Prabhas) birthday? 🧐</h1>
+  <p>Enter the correct month and day!</p>
+  <div>
+    <select id="month">
+      <option value="">Month</option>
+      <option>January</option><option>February</option><option>March</option>
+      <option>April</option><option>May</option><option>June</option>
+      <option>July</option><option>August</option><option>September</option>
+      <option>October</option><option>November</option><option>December</option>
+    </select>
+    <input type="number" id="day" min="1" max="31" placeholder="Day">
   </div>
+  <div id="error" class="error"></div>
+  <button onclick="checkDate()">Unlock 🔓</button>
+</div>
 
-  <!-- Page 3 -->
-  <div id="page3" class="screen">
-    <p>🎉💝💛🌸🏵️🌼 Happy Birthday my little sunshine! 🌞 Watching you grow up reminds me of my own childhood dreams 🌈 — full of joy and fun! You’ve grown so much and I’m really proud of the person you’re becoming. 💕 Stay strong, study well, and never lose that smile. You’re my favorite little headache 🤭💖.</p>
-    <button id="backBtn" onclick="nextPage(2)">← Back</button>
-    <button id="nextBtn" onclick="nextPage(4)">Next → 💌</button>
-  </div>
+<!-- Phase 2: Heart Wish -->
+<div id="page2" class="screen">
+  <h1>🎂Happy Birthday🎂</h1>
+  <h1>🥰My little princess🥰</h1>
+  <h1>💝Shibani💝</h1>
+  <h1>🤍Seema didi🤍</h1>
+  <button id="nextBtn" onclick="nextPage(3)">Next → Wish 💖</button>
+</div>
 
-  <!-- Page 4 -->
-  <div id="page4" class="screen">
-    <p>💌🌸 Thank🌼 you🏵️ 🎀🥰🌸 for🌹 talking🌼 with💮 me🌸 💖🌼, sending🏵️ me🌸 reels🌼 🎬🌹🌸 and🏵️ mentioning🌼 me🌸 in🏵️ your🌹 story🌼 and🏵️ bio🌸 ☀️🤍🌼. 🩷Sharing🌸 your🏵️ sadness🌼 🥺🍂🌸, happiness🏵️ 💛🌼🌼, and🏵️ your🌸 stories🌼 💮✨🌸. 🩷Thank🌸 you🏵️ 🎀🌼 for🌸 filling🏵️ the🌼 sister’s🌸 blank🏵️ space🌼 in🌸 my🏵️ life🌼 💕🌹🍁🌸. 🩷And🏵️ most🌼 of🌸 all🌼 💫🌸, thank🏵️ you🌼 🩷🌸 for🏵️ always🌼 making🌸 me🏵️ smile🌼 😊🌸☀️🌹. 🩷Remember🌸 — your🏵️ notification🌼 🔔🌸 is🏵️ my🌼 favourite🌸 on🏵️ Instagram🌼 💖🌸🎈🌼🎉🌸. 🩷Love🌸 you🏵️ always🌼, my🌸 little🏵️ sunshine🌼 ☀️💛💖🌼🎀🌹.</p>
-    <button id="backBtn" onclick="nextPage(3)">← Back</button>
-    <button id="exitBtn" onclick="exitSite()">Exit 🚪</button>
-  </div>
+<!-- Phase 3: Long Birthday Wish -->
+<div id="page3" class="screen">
+  <p>🎉🎂 Happy Birthday my 💖 little sunshine ☀️✨ Watching you grow up reminds me of when life was simple — school, dreams, rainbows 🌈, and snacks 🍪 all day 😋. You’ve grown so much and I’m really proud 🙏 of the person you’re becoming 💕. Stay strong 💪, study hard 📚, and never lose that smile 😄 — it’s your superpower 💫! No matter what people say, I’ll always stand by your side 💖. (And even if it’s your fault 😂 don’t worry 😆 — I’ll scold 🤨 you first and protect 🛡️ you right after 🤭.) You’re my favorite little headache 😜💞, my best friend 💕 and forever my small sister 💝 no matter how tall you get 🎂.</p>
+  <button id="backBtn" onclick="nextPage(2)">← Back</button>
+  <button id="nextBtn" onclick="nextPage(4)">Next → 💌</button>
+</div>
+
+<!-- Phase 4: Thank You Page -->
+<div id="page4" class="screen">
+  <p>💌🌸 Thank🌼 you🏵️ 🎀🥰🌸 for🌹 talking🌼 with💮 me🌸 💖🌼, sending🏵️ me🌸 reels🌼 🎬🌹🌸 and🏵️ mentioning🌼 me🌸 in🏵️ your🌹 story🌼 and🏵️ bio🌸 ☀️🤍🌼. 🩷Sharing🌸 your🏵️ sadness🌼 🥺🍂🌸, happiness🏵️ 💛🌼🌼, and🏵️ your🌸 stories🌼 💮✨🌸. 🩷Thank🌸 you🏵️ 🎀🌼 for🌸 filling🏵️ the🌼 sister’s🌸 blank🏵️ space🌼 in🌸 my🏵️ life🌼 💕🌹🍁🌸. 🩷And🏵️ most🌼 of🌸 all🌼 💫🌸, thank🏵️ you🌼 🩷🌸 for🏵️ always🌼 making🌸 me🏵️ smile🌼 😊🌸☀️🌹. 🩷Remember🌸 — your🏵️ notification🌼 🔔🌸 is🏵️ my🌼 favourite🌸 on🏵️ Instagram🌼 💖🌸🎈🌼🎉🌸. 🩷Love🌸 you🏵️ always🌼, my🌸 little🏵️ sunshine🌼 ☀️💛💖🌼🎀🌹.</p>
+  <button id="backBtn" onclick="nextPage(3)">← Back</button>
+  <button id="exitBtn" onclick="exitSite()">Exit 🚪</button>
+</div>
 
 <script>
-let current = 1;
+let current=1;
 showPage(current);
 
-function nextPage(page) {
-  document.getElementById(`page${current}`).style.display = "none";
-  document.getElementById(`page${page}`).style.display = "flex";
-  current = page;
+function checkDate(){
+  const month=document.getElementById("month").value;
+  const day=document.getElementById("day").value;
+  const error=document.getElementById("error");
+  if(month==="August" && day==="10"){
+    nextPage(2);
+  }else{
+    error.textContent="Oops! Wrong date 🥴 Try again!";
+  }
+}
+
+function nextPage(page){
+  document.getElementById(`page${current}`).style.display="none";
+  document.getElementById(`page${page}`).style.display="flex";
+  current=page;
   createEmojis(page);
 }
 
-function exitSite() {
-  alert("Thank you for visiting! 💖");
-  window.location.href = "https://www.instagram.com/";
+function exitSite(){
+  alert("Thank you for visiting 💖");
+  window.close();
 }
 
-function createEmojis(page) {
-  document.querySelectorAll('.emoji').forEach(e => e.remove());
-  let emojis = [];
-  if(page === 2) emojis = ["🥳","💩","🍫","🎈","🎊","🎂","🍰"];
-  else if(page === 3) emojis = ["🌸","💮","🏵️","🌹","🐕","🐷","🐵","🐖","🐒"];
-  else if(page === 4) emojis = ["🥰","😍","☺️","😊","🤡","🤢","🤮"];
-  else emojis = [];
+function createEmojis(page){
+  document.querySelectorAll('.emoji').forEach(e=>e.remove());
+  let emojis=[];
+  if(page===2) emojis=["🥳","💩","🍫","🎈","🎊","🎂","🍰"];
+  else if(page===3) emojis=["🌸","💮","🏵️","🌹","🐕","🐷","🐵","🐖","🐒"];
+  else if(page===4) emojis=["🥰","😍","☺️","😊","🤡","🤢","🤮"];
+  else emojis=[];
 
-  emojis.forEach(e => {
+  emojis.forEach(e=>{
     for(let i=0;i<10;i++){
-      let el = document.createElement("div");
+      let el=document.createElement("div");
       el.classList.add("emoji");
-      el.textContent = e;
-      el.style.left = Math.random()*100 + "vw";
-      el.style.animationDuration =
-        (page === 2 ? Math.random()*1.5 + 1 :
-        page === 3 ? Math.random()*4 + 3 :
-        page === 4 ? Math.random()*4 + 3 : 3) + "s";
+      el.textContent=e;
+      el.style.left=Math.random()*100+"vw";
+      el.style.zIndex=20;
+      el.style.animationDuration=
+        (page===2?Math.random()*1.2+0.8:
+         page===3||page===4?Math.random()*3+3:2)+"s";
       document.body.appendChild(el);
     }
   });
 }
 
-function showPage(num){
-  document.getElementById(`page${num}`).style.display="flex";
-}
+function showPage(num){document.getElementById(`page${num}`).style.display="flex";}
 </script>
 </body>
 </html>
