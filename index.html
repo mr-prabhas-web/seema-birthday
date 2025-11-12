@@ -1,179 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday — Shibani (Seema)</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{overflow:hidden;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday — Shibani (Seema)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-/* Shared screen style */
-.screen{
-  width:100%;
-  height:100vh;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  text-align:center;
-  background:linear-gradient(180deg,#ffe6f2,#ffd4ec);
-  position:relative;
-  overflow:hidden;
-}
-.active{display:flex;}
+    body {
+      background: linear-gradient(to bottom right, #ffb6c1, #fffacd);
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
 
-h1,h2,p{color:#53213f;}
-button{
-  margin-top:20px;
-  padding:12px 28px;
-  background:linear-gradient(90deg,#ffb8e2,#ffd86b);
-  border:none;
-  border-radius:20px;
-  font-size:16px;
-  font-weight:600;
-  color:#53213f;
-  cursor:pointer;
-  box-shadow:0 4px 12px rgba(255,119,183,0.4);
-  transition:transform .25s;
-  z-index:2;
-}
-button:hover{transform:scale(1.1);}
-.button-row {
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-</style>
+    .screen {
+      width: 100%;
+      min-height: 100vh;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .active {
+      display: flex;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #444;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #555;
+    }
+
+    select, button {
+      margin: 10px;
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      background: #ffe4ec;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    .heart {
+      font-size: 1.4rem;
+      color: #ff1493;
+      animation: glow 1.5s infinite alternate;
+      margin-bottom: 20px;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff69b4; }
+      to { text-shadow: 0 0 20px #ff1493; }
+    }
+
+    .falling {
+      position: fixed;
+      top: -10%;
+      font-size: 1.5rem;
+      animation: fall linear forwards;
+      z-index: 9;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* ✅ Fixed bottom button area */
+    .cta {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .cta button {
+      padding: 10px 20px;
+      border-radius: 12px;
+      background: #ffe4ec;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .cta button:hover {
+      background: #ffb6c1;
+    }
+
+  </style>
 </head>
 <body>
 
-<!-- PAGE 1 -->
-<section id="screen-1" class="screen active">
-  <h1>When is my birthday❓🧐</h1>
-  <p>Enter the correct month and day!</p>
-
-  <select id="month">
-    <option disabled selected>Month</option>
-    <option>January</option><option>February</option><option>March</option>
-    <option>April</option><option>May</option><option>June</option>
-    <option>July</option><option>August</option><option>September</option>
-    <option>October</option><option>November</option><option>December</option>
-  </select>
-
-  <select id="day">
-    <option disabled selected>Day</option>
-    <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-    <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-    <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option>
-    <option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>
-    <option>21</option><option>22</option><option>23</option><option>24</option><option>25</option>
-    <option>26</option><option>27</option><option>28</option><option>29</option><option>30</option>
-    <option>31</option>
-  </select>
-
-  <p id="error" style="color:red;font-weight:600;"></p>
-  <button id="unlock">Unlock 🔓</button>
-</section>
-
-<!-- PAGE 2 -->
-<section id="screen-2" class="screen">
-  <div class="wish-text" style="color:white;font-size:24px;font-weight:bold;line-height:1.8;text-shadow:0 0 10px #fff,0 0 25px #ffb6d9;white-space:pre-line;z-index:2;">
-🎂Happy Birthday🎂
-🥰My little princess🥰
-💝Shibani💝
-🤍Seema didi🤍
+  <!-- Pase 1 -->
+  <div class="screen active" id="pase1">
+    <h1>When is my (Prabhas) birthday❓🧐</h1>
+    <p>Enter the correct month and day!</p>
+    <div>
+      <select id="month">
+        <option>January</option>
+        <option>February</option>
+        <option>March</option>
+        <option>April</option>
+        <option>May</option>
+        <option>June</option>
+        <option>July</option>
+        <option>August</option>
+        <option>September</option>
+        <option>October</option>
+        <option>November</option>
+        <option>December</option>
+      </select>
+      <select id="day">
+        <script>
+          for (let i = 1; i <= 31; i++) {
+            document.write(`<option>${i}</option>`);
+          }
+        </script>
+      </select>
+    </div>
+    <p id="error" style="color:red; display:none;">Oops! Wrong date 😅 Try again!</p>
+    <div class="cta">
+      <button onclick="checkDate()">Unlock 🔓</button>
+    </div>
   </div>
-  <button id="toWish">Next → Wish 💌</button>
-</section>
 
-<!-- PAGE 3 -->
-<section id="screen-3" class="screen">
-  <div style="max-width:700px;font-size:18px;line-height:1.8;font-weight:500;color:#53213f;text-shadow:0 0 10px #fff,0 0 20px #ffb6d9;z-index:2;">
-🍂🎉 Happy🎈 Birthday🎂 my💖 little🌞⛅sunshine✨🍂
-
-🌸Watching👀 you💫 grow🌱 up⬆️ reminds🧠 me🙋‍♂️ of📸 when🕒 life🌍 was🎒 simple💭 — school🏫 dreams🌈 and🍫 snacks🍪 all💫 day☀️.
-You’ve💗 grown🌻 so🌟 much🙌 and❤️ I’m🙏 really💬 proud👏 of🎯 the💎 person🧍‍♀️ you’re✨ becoming💖
-
-Stay💪 strong👍🏻 study📚 hard📖 and😊 never🙅🏻‍♂️ lose💫 that💞 smile😄 — it’s⚡ your🌸 superpower💥!
-No🙅🏻‍♂️ matter💫 what🗣️ people👥 say🗨️ I’ll🤝 always💯 stand🧍‍♂️ by🐵🩷 your🌸 side✨.
-(And😂 if🤷‍♀️ it’s🩷 your😜 fault😅 don’t😌 worry😉 — I’ll😏 scold😤 you👊 first🥇 and✨ protect🛡️ you❤️ right👉 after💫!)
-
-You’re💖 my🤗 favorite💥 headache😜 my👭 little💕 best🌟 friend🤍 and🫶 forever♾️ my💗 small👧 sister💐 no🙅🏻‍♂️matter🌈 how🙃 tall📏 you📸 get🎂
+  <!-- Pase 2 -->
+  <div class="screen" id="pase2">
+    <div class="heart">🎂Happy Birthday🎂<br>🥰My little princess🥰<br>💝Shibani💝<br>🤍Seema didi🤍</div>
+    <div class="cta">
+      <button onclick="next('pase3')">Next → Wish 💗</button>
+    </div>
   </div>
-  <div class="button-row">
-    <button id="backTo2">← Back</button>
-    <button id="toThanks">Next → Thank You 💖</button>
+
+  <!-- Pase 3 -->
+  <div class="screen" id="pase3">
+    <h1>💖 Sending love, smiles, and laughter 💖</h1>
+    <p>Have the most beautiful day ever, my dear sister 🌸💝</p>
+    <div class="cta">
+      <button onclick="show('pase2')">← Back</button>
+      <button onclick="next('pase4')">Next → 💌</button>
+    </div>
   </div>
-</section>
 
-<!-- PAGE 4 -->
-<section id="screen-4" class="screen">
-  <div style="max-width:800px;font-size:19px;line-height:1.9;font-weight:500;color:#53213f;text-shadow:0 0 10px #fff,0 0 20px #ffb6d9;z-index:2;white-space:pre-line;">
-💌🌸 Thank🌼 you🏵️ 🎀🥰🌸 for🌹 talking🌼 with💮 me🌸 💖🌼, sending🏵️ me🌸 reels🌼 🎬🌹🌸 and🏵️ mentioning🌼 me🌸 in🏵️ your🌹 story🌼 and🏵️ bio🌸 ☀️🤍🌼. 🩷Sharing🌸 your🏵️ sadness🌼 🥺🍂🌸, happiness🏵️ 💛🌼🌼, and🏵️ your🌸 stories🌼 💮✨🌸. 🩷Thank🌸 you🏵️ 🎀🌼 for🌸 filling🏵️ the🌼 sister’s🌸 blank🏵️ space🌼 in🌸 my🏵️ life🌼 💕🌹🍁🌸. 🩷And🏵️ most🌼 of🌸 all🌼 💫🌸, thank🏵️ you🌼 🩷🌸 for🏵️ always🌼 making🌸 me🏵️ smile🌼 😊🌸☀️🌹. 🩷Remember🌸 — your🏵️ notification🌼 🔔🌸 is🏵️ my🌼 favourite🌸 on🏵️ Instagram🌼 💖🌸🎈🌼🎉🌸. 🩷Love🌸 you🏵️ always🌼, my🌸 little🏵️ sunshine🌼 ☀️💛💖🌼🎀🌹.
+  <!-- Pase 4 -->
+  <div class="screen" id="pase4">
+    <p style="font-size:1.1rem; color:#333; line-height:1.6; max-width:600px;">
+      💌🌸 Thank🌼 you🏵️ 🎀🥰🌸 for🌹 talking🌼 with💮 me🌸 💖🌼, sending🏵️ me🌸 reels🌼 🎬🌹🌸 and🏵️ mentioning🌼 me🌸 in🏵️ your🌹 story🌼 and🏵️ bio🌸 ☀️🤍🌼. 
+      🩷Sharing🌸 your🏵️ sadness🌼 🥺🍂🌸, happiness🏵️ 💛🌼🌼, and🏵️ your🌸 stories🌼 💮✨🌸. 
+      🩷Thank🌸 you🏵️ 🎀🌼 for🌸 filling🏵️ the🌼 sister’s🌸 blank🏵️ space🌼 in🌸 my🏵️ life🌼 💕🌹🍁🌸. 
+      🩷And🏵️ most🌼 of🌸 all🌼 💫🌸, thank🏵️ you🌼 🩷🌸 for🏵️ always🌼 making🌸 me🏵️ smile🌼 😊🌸☀️🌹. 
+      🩷Remember🌸 — your🏵️ notification🌼 🔔🌸 is🏵️ my🌼 favourite🌸 on🏵️ Instagram🌼 💖🌸🎈🌼🎉🌸. 
+      🩷Love🌸 you🏵️ always🌼, my🌸 little🏵️ sunshine🌼 ☀️💛💖🌼🎀🌹.
+    </p>
+    <div class="cta">
+      <button onclick="show('pase3')">← Back</button>
+      <button onclick="exitSite()">Exit 🚪</button>
+    </div>
   </div>
-  <div class="button-row">
-    <button id="backTo3">← Back</button>
-    <button id="exitSite">Exit 🚪</button>
-  </div>
-</section>
 
-<script>
-/* --- Page navigation --- */
-const screens=[...document.querySelectorAll('.screen')];
-document.getElementById('unlock').onclick=()=>{
-  const m=document.getElementById('month').value;
-  const d=document.getElementById('day').value;
-  const err=document.getElementById('error');
-  if(m==="August" && d==="10"){
-    screens[0].classList.remove('active');
-    screens[1].classList.add('active');
-    err.textContent="";
-  } else {
-    err.textContent="Oops! Wrong date 😅 Try again!";
-  }
-};
-document.getElementById('toWish').onclick=()=>{screens[1].classList.remove('active');screens[2].classList.add('active');};
-document.getElementById('toThanks').onclick=()=>{screens[2].classList.remove('active');screens[3].classList.add('active');};
-document.getElementById('backTo2').onclick=()=>{screens[2].classList.remove('active');screens[1].classList.add('active');};
-document.getElementById('backTo3').onclick=()=>{screens[3].classList.remove('active');screens[2].classList.add('active');};
-document.getElementById('exitSite').onclick=()=>{location.reload();};
+  <script>
+    const correctMonth = "August";
+    const correctDay = "31";
 
-/* --- Emoji Fall Function --- */
-function emojiFall(target,emojis,speed,minDur,maxDur){
-  const page=document.querySelector(target);
-  setInterval(()=>{
-    const e=document.createElement('div');
-    e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-    e.style.position='absolute';
-    e.style.left=Math.random()*100+'vw';
-    e.style.top='-40px';
-    e.style.fontSize=20+Math.random()*20+'px';
-    e.style.zIndex=3;
-    e.style.animation=`fall${target.replace('#','')} ${minDur+Math.random()*(maxDur-minDur)}s linear`;
-    page.appendChild(e);
-    setTimeout(()=>e.remove(),(maxDur+1)*1000);
-  },speed);
-}
-function makeKeyframes(name){
-  const s=document.createElement('style');
-  s.innerHTML=`@keyframes ${name}{
-    0%{transform:translateY(0) rotate(0deg);}
-    100%{transform:translateY(110vh) rotate(360deg);}
-  }`;
-  document.head.appendChild(s);
-}
-makeKeyframes('fallscreen-2');
-makeKeyframes('fallscreen-3');
-makeKeyframes('fallscreen-4');
+    function checkDate() {
+      const month = document.getElementById("month").value;
+      const day = document.getElementById("day").value;
+      const error = document.getElementById("error");
 
-/* Page 2 - fast 🍫🎁🎂🎈🎊🥳 + 💩 */
-emojiFall('#screen-2',["🍫","🎁","🎂","🎈","🎊","🥳","💩"],120,2,5);
-/* Page 3 - medium 🩷💝🤍💛🌸🏵️🌼🐒🐖🐷🐕 */
-emojiFall('#screen-3',["🩷","💝","🤍","💛","🌸","🏵️","🌼","🐒","🐖","🐷","🐕"],300,5,9);
-/* Page 4 - slow 🤮🤡😊🥰🤗😍 */
-emojiFall('#screen-4',["🤮","🤡","😊","🥰","🤗","😍"],400,7,12);
-</script>
+      if (month === correctMonth && day === correctDay) {
+        next("pase2");
+      } else {
+        error.style.display = "block";
+      }
+    }
+
+    function show(id) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    function next(id) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      startFalling(id);
+    }
+
+    function startFalling(id) {
+      let emojis = "";
+      if (id === "pase2") emojis = "🍫🎁🎂🎈🎊🥳💩";
+      if (id === "pase3") emojis = "🩷💝🤍💛🌸🏵️🌼🐒🐖🐷🐕";
+      if (id === "pase4") emojis = "🤮🤡🤗😍😊🥰☺️";
+
+      const symbols = emojis.split("");
+      setInterval(() => {
+        const span = document.createElement("span");
+        span.className = "falling";
+        span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        span.style.left = Math.random() * 100 + "vw";
+        span.style.animationDuration = (id === "pase2" ? 2 : id === "pase3" ? 4 : 5) + "s";
+        document.body.appendChild(span);
+        setTimeout(() => span.remove(), 6000);
+      }, 300);
+    }
+
+    function exitSite() {
+      window.location.reload();
+    }
+  </script>
 </body>
 </html>
