@@ -1,232 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday — Shibani (Seema)</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday — Shibani (Seema)</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background: linear-gradient(to bottom right, #ffb6c1, #fffacd);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
-    body {
-      background: linear-gradient(to bottom right, #ffb6c1, #fffacd);
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
+/* each page */
+.screen {
+  width: 100%;
+  min-height: 100vh;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+.active {
+  display: flex;
+}
 
-    .screen {
-      width: 100%;
-      min-height: 100vh;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
+/* buttons fixed bottom */
+.cta {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index: 10;
+}
+.cta button {
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: #ffe4ec;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.cta button:hover {
+  background: #ffb6c1;
+}
 
-    .active {
-      display: flex;
-    }
+.heart {
+  color: white;
+  font-size: 1.4rem;
+  text-shadow: 0 0 10px #fff, 0 0 25px #ffb6d9;
+  line-height: 1.8;
+  z-index: 2;
+}
 
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      color: #444;
-    }
-
-    p {
-      font-size: 1rem;
-      color: #555;
-    }
-
-    select, button {
-      margin: 10px;
-      padding: 10px 15px;
-      border-radius: 10px;
-      border: none;
-      font-size: 1rem;
-      background: #ffe4ec;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      cursor: pointer;
-    }
-
-    .heart {
-      font-size: 1.4rem;
-      color: #ff1493;
-      animation: glow 1.5s infinite alternate;
-      margin-bottom: 20px;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #ff69b4; }
-      to { text-shadow: 0 0 20px #ff1493; }
-    }
-
-    .falling {
-      position: fixed;
-      top: -10%;
-      font-size: 1.5rem;
-      animation: fall linear forwards;
-      z-index: 9;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* ✅ Fixed bottom button area */
-    .cta {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      z-index: 10;
-    }
-
-    .cta button {
-      padding: 10px 20px;
-      border-radius: 12px;
-      background: #ffe4ec;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .cta button:hover {
-      background: #ffb6c1;
-    }
-
-  </style>
+.falling {
+  position: fixed;
+  top: -10%;
+  font-size: 1.5rem;
+  animation: fall linear forwards;
+  z-index: 9;
+}
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+</style>
 </head>
 <body>
 
-  <!-- Pase 1 -->
-  <div class="screen active" id="pase1">
-    <h1>When is my (Prabhas) birthday❓🧐</h1>
-    <p>Enter the correct month and day!</p>
-    <div>
-      <select id="month">
-        <option>January</option>
-        <option>February</option>
-        <option>March</option>
-        <option>April</option>
-        <option>May</option>
-        <option>June</option>
-        <option>July</option>
-        <option>August</option>
-        <option>September</option>
-        <option>October</option>
-        <option>November</option>
-        <option>December</option>
-      </select>
-      <select id="day">
-        <script>
-          for (let i = 1; i <= 31; i++) {
-            document.write(`<option>${i}</option>`);
-          }
-        </script>
-      </select>
-    </div>
-    <p id="error" style="color:red; display:none;">Oops! Wrong date 😅 Try again!</p>
-    <div class="cta">
-      <button onclick="checkDate()">Unlock 🔓</button>
-    </div>
+<!-- Page 1 -->
+<section id="p1" class="screen active">
+  <h1>When is my (Prabhas) birthday❓🧐</h1>
+  <p>Enter the correct month and day!</p>
+  <div>
+    <select id="month">
+      <option disabled selected>Month</option>
+      <option>January</option><option>February</option><option>March</option>
+      <option>April</option><option>May</option><option>June</option>
+      <option>July</option><option>August</option><option>September</option>
+      <option>October</option><option>November</option><option>December</option>
+    </select>
+    <select id="day">
+      <option disabled selected>Day</option>
+      <!-- generate 1-31 -->
+      <script>
+        for (let i = 1; i <= 31; i++) document.write(`<option>${i}</option>`);
+      </script>
+    </select>
   </div>
-
-  <!-- Pase 2 -->
-  <div class="screen" id="pase2">
-    <div class="heart">🎂Happy Birthday🎂<br>🥰My little princess🥰<br>💝Shibani💝<br>🤍Seema didi🤍</div>
-    <div class="cta">
-      <button onclick="next('pase3')">Next → Wish 💗</button>
-    </div>
+  <p id="error" style="color:red; font-weight:600;"></p>
+  <div class="cta">
+    <button onclick="checkDate()">Unlock 🔓</button>
   </div>
+</section>
 
-  <!-- Pase 3 -->
-  <div class="screen" id="pase3">
-    <h1>💖 Sending love, smiles, and laughter 💖</h1>
-    <p>Have the most beautiful day ever, my dear sister 🌸💝</p>
-    <div class="cta">
-      <button onclick="show('pase2')">← Back</button>
-      <button onclick="next('pase4')">Next → 💌</button>
-    </div>
+<!-- Page 2 -->
+<section id="p2" class="screen">
+  <div class="heart">
+🎂Happy Birthday🎂<br>
+🥰My little princess🥰<br>
+💝Shibani💝<br>
+🤍Seema didi🤍
   </div>
-
-  <!-- Pase 4 -->
-  <div class="screen" id="pase4">
-    <p style="font-size:1.1rem; color:#333; line-height:1.6; max-width:600px;">
-      💌🌸 Thank🌼 you🏵️ 🎀🥰🌸 for🌹 talking🌼 with💮 me🌸 💖🌼, sending🏵️ me🌸 reels🌼 🎬🌹🌸 and🏵️ mentioning🌼 me🌸 in🏵️ your🌹 story🌼 and🏵️ bio🌸 ☀️🤍🌼. 
-      🩷Sharing🌸 your🏵️ sadness🌼 🥺🍂🌸, happiness🏵️ 💛🌼🌼, and🏵️ your🌸 stories🌼 💮✨🌸. 
-      🩷Thank🌸 you🏵️ 🎀🌼 for🌸 filling🏵️ the🌼 sister’s🌸 blank🏵️ space🌼 in🌸 my🏵️ life🌼 💕🌹🍁🌸. 
-      🩷And🏵️ most🌼 of🌸 all🌼 💫🌸, thank🏵️ you🌼 🩷🌸 for🏵️ always🌼 making🌸 me🏵️ smile🌼 😊🌸☀️🌹. 
-      🩷Remember🌸 — your🏵️ notification🌼 🔔🌸 is🏵️ my🌼 favourite🌸 on🏵️ Instagram🌼 💖🌸🎈🌼🎉🌸. 
-      🩷Love🌸 you🏵️ always🌼, my🌸 little🏵️ sunshine🌼 ☀️💛💖🌼🎀🌹.
-    </p>
-    <div class="cta">
-      <button onclick="show('pase3')">← Back</button>
-      <button onclick="exitSite()">Exit 🚪</button>
-    </div>
+  <div class="cta">
+    <button onclick="next('p3')">Next → Wish 💗</button>
   </div>
+</section>
 
-  <script>
-    const correctMonth = "August";
-    const correctDay = "31";
+<!-- Page 3 -->
+<section id="p3" class="screen">
+  <div style="max-width:700px;font-size:18px;line-height:1.8;font-weight:500;color:#53213f;text-shadow:0 0 10px #fff,0 0 20px #ffb6d9;z-index:2;">
+🍂🎉 Happy🎈 Birthday🎂 my💖 little🌞⛅sunshine✨🍂
 
-    function checkDate() {
-      const month = document.getElementById("month").value;
-      const day = document.getElementById("day").value;
-      const error = document.getElementById("error");
+🌸Watching👀 you💫 grow🌱 up⬆️ reminds🧠 me🙋‍♂️ of📸 when🕒 life🌍 was🎒 simple💭 — school🏫 dreams🌈 and🍫 snacks🍪 all💫 day☀️.
+You’ve💗 grown🌻 so🌟 much🙌 and❤️ I’m🙏 really💬 proud👏 of🎯 the💎 person🧍‍♀️ you’re✨ becoming💖
 
-      if (month === correctMonth && day === correctDay) {
-        next("pase2");
-      } else {
-        error.style.display = "block";
-      }
-    }
+Stay💪 strong👍🏻 study📚 hard📖 and😊 never🙅🏻‍♂️ lose💫 that💞 smile😄 — it’s⚡ your🌸 superpower💥!
+No🙅🏻‍♂️ matter💫 what🗣️ people👥 say🗨️ I’ll🤝 always💯 stand🧍‍♂️ by🩷 your🌸 side✨.
+(And😂 if🤷‍♀️ it’s🩷 your😜 fault😅 don’t😌 worry😉 — I’ll😏 scold😤 you👊 first🥇 and✨ protect🛡️ you❤️ right👉 after💫!)
 
-    function show(id) {
-      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
-    }
+You’re💖 my🤗 favorite💥 headache😜 my👭 little💕 best🌟 friend🤍 and🫶 forever♾️ my💗 small👧 sister💐 no🙅🏻‍♂️matter🌈 how🙃 tall📏 you📸 get🎂
+  </div>
+  <div class="cta">
+    <button onclick="show('p2')">← Back</button>
+    <button onclick="next('p4')">Next → 💌</button>
+  </div>
+</section>
 
-    function next(id) {
-      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
-      startFalling(id);
-    }
+<!-- Page 4 -->
+<section id="p4" class="screen">
+  <p style="max-width:700px;font-size:18px;line-height:1.8;color:#53213f;">
+💌🌸 Thank🌼 you🏵️ 🎀🥰🌸 for🌹 talking🌼 with💮 me🌸 💖🌼, sending🏵️ me🌸 reels🌼 🎬🌹🌸 and🏵️ mentioning🌼 me🌸 in🏵️ your🌹 story🌼 and🏵️ bio🌸 ☀️🤍🌼.
+🩷Sharing🌸 your🏵️ sadness🌼 🥺🍂🌸, happiness🏵️ 💛🌼🌼, and🏵️ your🌸 stories🌼 💮✨🌸.
+🩷Thank🌸 you🏵️ 🎀🌼 for🌸 filling🏵️ the🌼 sister’s🌸 blank🏵️ space🌼 in🌸 my🏵️ life🌼 💕🌹🍁🌸.
+🩷And🏵️ most🌼 of🌸 all🌼 💫🌸, thank🏵️ you🌼 🩷🌸 for🏵️ always🌼 making🌸 me🏵️ smile🌼 😊🌸☀️🌹.
+🩷Remember🌸 — your🏵️ notification🌼 🔔🌸 is🏵️ my🌼 favourite🌸 on🏵️ Instagram🌼 💖🌸🎈🌼🎉🌸.
+🩷Love🌸 you🏵️ always🌼, my🌸 little🏵️ sunshine🌼 ☀️💛💖🌼🎀🌹.
+  </p>
+  <div class="cta">
+    <button onclick="show('p3')">← Back</button>
+    <button onclick="exitSite()">Exit 🚪</button>
+  </div>
+</section>
 
-    function startFalling(id) {
-      let emojis = "";
-      if (id === "pase2") emojis = "🍫🎁🎂🎈🎊🥳💩";
-      if (id === "pase3") emojis = "🩷💝🤍💛🌸🏵️🌼🐒🐖🐷🐕";
-      if (id === "pase4") emojis = "🤮🤡🤗😍😊🥰☺️";
-
-      const symbols = emojis.split("");
-      setInterval(() => {
-        const span = document.createElement("span");
-        span.className = "falling";
-        span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        span.style.left = Math.random() * 100 + "vw";
-        span.style.animationDuration = (id === "pase2" ? 2 : id === "pase3" ? 4 : 5) + "s";
-        document.body.appendChild(span);
-        setTimeout(() => span.remove(), 6000);
-      }, 300);
-    }
-
-    function exitSite() {
-      window.location.reload();
-    }
-  </script>
+<script>
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function next(id){
+  show(id);
+  startFalling(id);
+}
+function checkDate(){
+  const m=document.getElementById('month').value;
+  const d=document.getElementById('day').value;
+  const err=document.getElementById('error');
+  if(m==="August" && d==="10"){
+    show('p2');
+  } else {
+    err.textContent="Oops! Wrong date 😅 Try again!";
+  }
+}
+function exitSite(){location.reload();}
+function startFalling(id){
+  let emojis="";
+  if(id==="p2") emojis="🍫🎁🎂🎈🎊🥳💩";
+  if(id==="p3") emojis="🩷💝🤍💛🌸🏵️🌼🐒🐖🐷🐕";
+  if(id==="p4") emojis="🤮🤡🤗😍😊🥰☺️";
+  const arr=emojis.split("");
+  setInterval(()=>{
+    const s=document.createElement("span");
+    s.className="falling";
+    s.textContent=arr[Math.floor(Math.random()*arr.length)];
+    s.style.left=Math.random()*100+"vw";
+    s.style.animationDuration=(id==="p2"?2:id==="p3"?4:5)+"s";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),6000);
+  },300);
+}
+</script>
 </body>
 </html>
-
